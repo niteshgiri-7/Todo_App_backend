@@ -3,8 +3,9 @@ const bodyParser = require("body-parser");
 const app = express();
 
 const db = require("./db");
+require('dotenv').config();
+const PORT = process.env.PORT || 3000;
 const taskRoute= require("./routes/taskRoutes");
-const port = 3000;
 
 app.use(bodyParser.json());
 
@@ -12,6 +13,6 @@ app.use(bodyParser.json());
 app.use("/tasks",taskRoute);
 
 
-app.listen(port,()=>{
-    console.log(`\nserver started at port ${port}`);
+app.listen(PORT,()=>{
+    console.log(`\nserver started at port ${PORT}`);
 })
