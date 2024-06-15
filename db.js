@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+require('dotenv').config();
 
-// const mongoUrl = 'mongodb://localhost:27017/tasks';
-const mongoUrl ='mongodb+srv://admin:AdminNitesh@cluster0.pxpbmhn.mongodb.net/'
 
+const mongoUrl = process.env.DB_URL;
+// const mongoUrl =process.env.LOCAL_URL;
 mongoose.connect(mongoUrl,{
     useNewUrlParser: true,
     useUnifiedTopology:true
@@ -19,7 +20,7 @@ db.on('error',()=>{
 db.on('disconnected',()=>{
     console.log("database server disconnected");
 })
-
+console.log(process.env)
 //export the connection
 
 module.exports = db;
