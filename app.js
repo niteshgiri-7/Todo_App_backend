@@ -5,14 +5,17 @@ const app = express();
 const db = require("./db");
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
-const taskRoute= require("./routes/taskRoutes");
+const passport = require("./auth/localAuth");
+passport.initialize();
 
+
+const taskRoute= require("./routes/taskRoutes");
+const userRoute = require("./routes/userRoutes");
 app.use(bodyParser.json());
 
 
-app.use("/tasks",taskRoute);
-
-
+app.use("/tasks",passport.authenticate('local',{session:false}),taskRoute);
+app.use("/users",userRoute);
 app.listen(PORT,()=>{
     console.log(`\nserver started at port ${PORT}`);
    

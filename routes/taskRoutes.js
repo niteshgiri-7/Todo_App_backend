@@ -20,6 +20,7 @@ router.post("/",async(req,res)=>{
         res.status(500).send("internal serval error");
     }
 })
+
 router.get("/",async(req,res)=>{
     try{
     const allTask = await task.find();
