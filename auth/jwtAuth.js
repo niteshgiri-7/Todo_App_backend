@@ -2,7 +2,12 @@ const jwt = require("jsonwebtoken");
 const secretKey = process.env.JWTsecretKey;
 
 
-const jwtAuthMiddleware = (req,res,next)=>{
+const jwtVerify = (req,res,next)=>{
+
+    const authorization = req.headers.authorization;
+    if(!authorization){
+        return res.status(401).json({error:"token not found"});
+    }
     const token = req.headers.authorization.split(' ')[1];
   try{
     if(!token){
@@ -19,8 +24,8 @@ catch(err){
 
 const generateToken = (userData)=>{
 
-    return jwt.sign(userData,secretKey);
+    return jwt.sign(userData,secretKey,{expiresIn:(7*86400)});
 
 }
 
-module.exports = {jwtAuthMiddleware,generateToken};
+module.exports = {jwtVerify,generateToken};
