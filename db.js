@@ -20,7 +20,7 @@ db.on('error',()=>{
 db.on('disconnected',()=>{
     console.log("database server disconnected");
 })
-console.log(process.env)
+
 //export the connection
 
 module.exports = db;

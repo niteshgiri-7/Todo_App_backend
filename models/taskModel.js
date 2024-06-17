@@ -13,6 +13,10 @@ description:{
 createdAt:{
       type:Date,
       default:Date.now()
+},
+owner:{
+    type: schema.Types.ObjectId,
+    ref:"user"
 }
 })
 

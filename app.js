@@ -6,7 +6,8 @@ const db = require("./db");
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const passport = require("./auth/localAuth");
-const {jwtVerify,generateToken}=require("./auth/jwtAuth");
+const {jwtVerify,generateToken,conditionalJwt}=require("./auth/jwtAuth");
+
 passport.initialize();
 
 
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 
 // app.use("/tasks",passport.authenticate('local',{session:false}),taskRoute);
 app.use("/tasks",jwtVerify,taskRoute);
-// app.use("/tasks",taskRoute);
+
 app.use("/users",userRoute);
 app.listen(PORT,()=>{
     console.log(`\nserver started at port ${PORT}`);
