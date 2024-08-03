@@ -1,244 +1,140 @@
-API Documentation
-User Routes
-1. Sign Up
-Endpoint: POST /users/signup
-Description: Registers a new user.
-Request Body:
-json
 
-{
-  "username": "string",
-  "email": "string",
-  "password": "string"
+# Project Title
+
+This backend application is built using Node.js with Express and MongoDB. It provides functionality for user management and task management.
+
+
+# API Reference
+
+## user singup
+
+```http
+  POST /users/signup
+```
+`json`
+| Parameter | Type     | Description                |
+-------- | :------- | :------------------------- 
+| `username` | `string` | **Required** |
+| `email` | `string` | **Required** |
+| `password` | `string` | **Required** |
+
+#### response 
+```
+status:200
+({id:id,
+token:token,
+message:"signup successful"})
+```
+
+## user login
+
+```http
+  POST /users/login
+```
+`json`
+| Parameter | Type     | Description                |
+-------- | :------- | :------------------------- 
+| `username` | `string` | **Required** |
+| `password` | `string` | **Required** |
+
+#### response 
+```
+status:200
+({
+token:token,
+message:"successful login"})
+
+status:401
+{error:"invalid username or password"}
+```
+
+## change password
+```http
+  PUT /users/changepassword
+```
+`json`
+| Parameter | Type     | Description                |
+-------- | :------- | :------------------------- 
+| `username` | `string` | **Required** |
+| `oldPassword` | `string` | **Required** |
+| `newPassword` | `string` | **Required** |
+
+#### response 
+```
+status:200
+({
+message:"password changed"})
 }
-Responses:
-Success (200):
-json
+```
+# tasks
 
-{
-  "id": "user-id",
-  "token": "jwt-token",
-  "message": "Signup successful"
+## add task
+```http
+  POST /tasks
+```
+`json`
+| Parameter | Type     | Description                |
+-------- | :------- | :------------------------- 
+| `title` | `string` | **Required** |
+| `description` | `string` | **Required** |
+
+
+#### response 
+```
+status:200
+({
+response:"response"})
 }
-Error (400):
-json
+```
 
-{
-  "error": "Username not available, try another username"
+## add task
+```http
+  POST /tasks
+```
+`json`
+| Parameter | Type     | Description                |
+-------- | :------- | :------------------------- 
+| `title` | `string` | **Required** |
+| `description` | `string` | **Required** |
+
+
+#### response 
+```
+status:200
+({
+response:"response"})
 }
-2. Login
-Endpoint: POST /users/login
-Description: Authenticates a user and returns a JWT token.
-Request Body:
-json
+```
 
-{
-  "username": "string",
-  "password": "string"
+
+## update task
+```http
+  PUT /tasks/:id
+```
+`json`
+| Parameter | Type     | Description                |
+-------- | :------- | :------------------------- 
+| `title` | `string` | **Required** |
+| `description` | `string` | **Required** |
+
+
+#### response 
+```
+status:200
+({
+response comes as updated task})
 }
-Responses:
-Success (200):
-json
+```
 
-{
-  "token": "jwt-token",
-  "message": "Successful login"
+
+## delete task
+```http
+  DELETE /tasks/:id
+```
+#### response 
+```
+status:200
+({
+message:"task deleted"})
 }
-Error (401):
-json
-
-{
-  "error": "Invalid username or password"
-}
-3. Change Password
-Endpoint: PUT /users/changepassword
-Description: Allows a logged-in user to change their password.
-Request Body:
-json
-
-{
-  "username": "string",
-  "oldPassword": "string",
-  "newPassword": "string"
-}
-Responses:
-Success (200):
-json
-
-{
-  "message": "Password changed"
-}
-Error (401):
-json
-
-{
-  "error": "Incorrect password"
-}
-Error (400):
-json
-
-{
-  "message": "New password cannot be the same as old password"
-}
-Error (404):
-json
-
-{
-  "error": "User not found"
-}
-Error (500):
-json
-
-{
-  "error": "Internal error occurred"
-}
-4. Delete Account
-Endpoint: DELETE /users/delete
-Description: Deletes a user account.
-Request Body:
-json
-
-{
-  "username": "string"
-}
-Responses:
-Success (200):
-json
-
-{
-  "message": "Successfully deleted"
-}
-Error (500):
-json
-
-{
-  "error": "Error occurred"
-}
-Task Routes
-1. Create Task
-Endpoint: POST /tasks
-Description: Creates a new task.
-Request Body:
-json
-
-{
-  "title": "string",
-  "description": "string"
-}
-Responses:
-Success (200):
-json
-
-{
-  "response": {
-    "_id": "task-id",
-    "title": "string",
-    "description": "string",
-    "createdAt": "YYYY-MM-DDTHH:MM:SSZ",
-    "owner": "user-id"
-  }
-}
-Error (500):
-json
-
-{
-  "error": "Internal server error"
-}
-2. Get All Tasks
-Endpoint: GET /tasks
-Description: Retrieves all tasks for the authenticated user.
-Responses:
-Success (200):
-json
-
-[
-  {
-    "_id": "task-id",
-    "title": "string",
-    "description": "string",
-    "createdAt": "YYYY-MM-DD HH:MM"  // Formatted in Asia/Kathmandu timezone
-  }
-]
-Error (500):
-json
-
-{
-  "error": "Internal server error"
-}
-3. Get Task by ID
-Endpoint: GET /tasks/:id
-Description: Retrieves a task by its ID.
-Responses:
-Success (200):
-json
-
-{
-  "_id": "task-id",
-  "title": "string",
-  "description": "string",
-  "createdAt": "YYYY-MM-DDTHH:MM:SSZ",
-  "owner": "user-id"
-}
-Error (500):
-json
-
-{
-  "error": "Internal server error"
-}
-4. Update Task
-Endpoint: PUT /tasks/:id
-Description: Updates a task by its ID.
-Request Body:
-json
-
-{
-  "title": "string",
-  "description": "string"
-}
-Responses:
-Success (200):
-json
-
-{
-  "_id": "task-id",
-  "title": "string",
-  "description": "string",
-  "createdAt": "YYYY-MM-DDTHH:MM:SSZ",
-  "owner": "user-id"
-}
-Error (404):
-json
-
-{
-  "error": "Task not found"
-}
-Error (500):
-json
-
-{
-  "error": "Invalid ID or internal server error"
-}
-5. Delete Task
-Endpoint: DELETE /tasks/:id
-Description: Deletes a task by its ID.
-Responses:
-Success (200):
-json
-
-{
-  "message": "Task deleted"
-}
-Error (403):
-json
-
-{
-  "error": "Unauthorized to delete this task"
-}
-Error (500):
-json
-
-{
-  "error": "Internal server error"
-}
-Authentication Middleware
-jwtVerify: Middleware to ensure routes are accessed by authenticated users.
+```
