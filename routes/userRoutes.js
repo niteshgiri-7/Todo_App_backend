@@ -19,7 +19,7 @@ router.post("/signup", async (req, res) => {
     catch (err) {
         console.log("unable to save new user");
         console.log(err)
-        res.status(400).json({error:"username not availabe,try another username"});
+        res.status(400).json({error:err.message});
     }
 })
 router.get("/login",(req,res)=>{
