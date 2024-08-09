@@ -5,6 +5,11 @@ const {generateToken,jwtVerify} = require("../auth/jwtAuth");
 router.post("/signup", async (req, res) => {
     try {
         const userToBeAdded = req.body;
+        const {username,gmail} = userToBeAdded;
+        const nameNotAvailabe = await user.find({username:username});
+        if(nameNotAvailabe) return res.status(400).json({error:"username not available,try another"});
+        const isGmailUsed = await user.find({gmail:gmail});
+        if(isGmailUsed) return res.status(400).json({error:"gmail already used"});
         const newUser = new user(userToBeAdded);
         const response = await newUser.save();
 
