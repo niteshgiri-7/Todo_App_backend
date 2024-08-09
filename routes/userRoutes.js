@@ -13,7 +13,7 @@ router.post("/signup", async (req, res) => {
             username:response.username
         }
         const token = generateToken(payLoad);
-        res.status(200).json({id:response.id,token:token,message:"signup successful"});
+        res.status(200).json({id:response.id,username:response.username,token:token,message:"signup successful"});
         console.log("new user saved")
     }
     catch (err) {
@@ -37,7 +37,7 @@ router.post("/login",async(req,res)=>{
         username:username
     }
     const token = generateToken(payload);
-    res.status(200).json({token:token,message:"successful login"});
+    res.status(200).json({username:username,token:token,message:"successful login"});
 }
 catch(err){
     res.status(500).json({error:"internal server error"});
