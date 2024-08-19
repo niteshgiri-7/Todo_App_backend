@@ -6,7 +6,7 @@ This backend application is built using Node.js with Express and MongoDB. It pro
 
 # API Reference
 
-## user singup
+## user sign-up
 
 ```http
   POST /users/signup
@@ -66,27 +66,7 @@ status:200
 message:"password changed"})
 }
 ```
-# tasks
-
-## add task
-```http
-  POST /tasks
-```
-`json`
-| Parameter | Type     | Description                |
--------- | :------- | :------------------------- 
-| `title` | `string` | **Required** |
-| `description` | `string` | **Required** |
-
-
-#### response 
-```
-status:200
-({
-response:"response"})
-}
-```
-
+# task
 ## add task
 ```http
   POST /tasks
