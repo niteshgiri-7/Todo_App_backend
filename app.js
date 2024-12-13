@@ -6,10 +6,10 @@ app.use(cors());
 const db = require("./db");
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
-const passport = require("./auth/localAuth");
+// const passport = require("./auth/localAuth");
 const {jwtVerify,generateToken,conditionalJwt}=require("./auth/jwtAuth");
 
-passport.initialize();
+// passport.initialize();
 
 
 const taskRoute= require("./routes/taskRoutes");
